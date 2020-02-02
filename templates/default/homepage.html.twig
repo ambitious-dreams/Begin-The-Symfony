@@ -1,11 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body_id 'homepage' %}
-
-{#
-    the homepage is a special page which displays neither a header nor a footer.
-    this is done with the 'trick' of defining empty Twig blocks without any content
-#}
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 
@@ -15,29 +10,46 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="jumbotron">
-                <p>
-                    {{ 'help.browse_app'|trans|raw }}
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="{{ path('blog_index') }}">
-                        <i class="fa fa-users" aria-hidden="true"></i> {{ 'action.browse_app'|trans }}
-                    </a>
-                </p>
-            </div>
-        </div>
+                {% if app.user is same as(null)  %}
+                    <p>
+                        {{ 'help.login'|trans|raw }}
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="{{ path('security_login') }}">
+                            <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.login'|trans }}
+                        </a>
+                    </p>
+                {% endif %}
 
-        <div class="col-sm-6">
-            <div class="jumbotron">
-                <p>
-                    {{ 'help.browse_admin'|trans|raw }}
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="{{ path('admin_index') }}">
-                        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.browse_admin'|trans }}
-                    </a>
-                </p>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <p>
+                        {{ 'help.welcome_admin'|trans|raw }} 
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="{{ path('admin_index') }}">
+                            <i class="fa fa-user" aria-hidden="true"></i> {{ 'action.admin_dashboard'|trans }}
+                        </a>
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="{{ path('security_logout') }}">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
+                        </a>
+                    </p>
+                {% endif %}
+
+                {% if is_granted('ROLE_USER') and is_granted('ROLE_ADMIN') == false %}
+                    <p>
+                        {{ 'help.welcome_user'|trans|raw }} 
+                        <strong>{{ app.user.username }}</strong>!
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="{{ path('security_logout') }}">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
+                        </a>
+                    </p>
+                {% endif %}
             </div>
         </div>
     </div>

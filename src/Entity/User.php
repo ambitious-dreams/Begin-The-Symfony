@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -17,16 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="symfony_demo_user")
- *
- * Defines the properties of the User entity to represent the application users.
- * See https://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
- *
- * Tip: if you have an existing database, you can generate these entity class automatically.
- * See https://symfony.com/doc/current/cookbook/doctrine/reverse_engineering.html
- *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @ORM\Table(name="user")
  */
 class User implements UserInterface, \Serializable
 {
@@ -42,24 +24,17 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
-     */
-    private $fullName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string", length=191)
      * @Assert\NotBlank()
      * @Assert\Length(min=2, max=50)
      */
-    private $username;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string", length=191, unique=true)
+     * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
@@ -67,7 +42,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=191)
      */
     private $password;
 
@@ -78,29 +53,40 @@ class User implements UserInterface, \Serializable
      */
     private $roles = [];
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastActionAt;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $inactive;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setFullName(string $fullName): void
+    public function getName(): ?string
     {
-        $this->fullName = $fullName;
+        return $this->name;
     }
 
-    public function getFullName(): ?string
+    public function setName(string $name): self
     {
-        return $this->fullName;
+        $this->name = $name;
+
+        return $this;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): void
-    {
-        $this->username = $username;
+        return (string) $this->email;
     }
 
     public function getEmail(): ?string
@@ -174,7 +160,7 @@ class User implements UserInterface, \Serializable
     public function serialize(): string
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
-        return serialize([$this->id, $this->username, $this->password]);
+        return serialize([$this->id, $this->email, $this->password]);
     }
 
     /**
@@ -183,6 +169,30 @@ class User implements UserInterface, \Serializable
     public function unserialize($serialized): void
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
-        [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->id, $this->email, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getLastActionAt(): ?\DateTimeInterface
+    {
+        return $this->lastActionAt;
+    }
+
+    public function setLastActionAt(?\DateTimeInterface $lastActionAt): self
+    {
+        $this->lastActionAt = $lastActionAt;
+
+        return $this;
+    }
+
+    public function getInactive(): ?bool
+    {
+        return $this->inactive;
+    }
+
+    public function setInactive(?bool $inactive): self
+    {
+        $this->inactive = $inactive;
+
+        return $this;
     }
 }

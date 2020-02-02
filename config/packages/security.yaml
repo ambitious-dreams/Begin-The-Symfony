@@ -4,6 +4,7 @@ security:
         # 'auto' means to let Symfony choose the best possible password hasher (Argon2 or Bcrypt)
         # https://symfony.com/doc/current/security.html#c-encoding-the-user-s-password
         App\Entity\User: 'auto'
+        Symfony\Component\Security\Core\User\User: 'auto'
 
     providers:
         # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
@@ -11,7 +12,16 @@ security:
         # To see the users at src/App/DataFixtures/ORM/LoadFixtures.php
         # To load users from somewhere else: https://symfony.com/doc/current/security/custom_provider.html
         database_users:
-            entity: { class: App\Entity\User, property: username }
+            entity: { class: App\Entity\User, property: email }
+        backend_users:
+            memory:
+                users:
+                    symfony@symfony.lt: { password: '$argon2i$v=19$m=65536,t=4,p=1$WVZhQ3BIYnlBL2I0NDdDRw$JpjZu5KppraolOiGhORDijqooeHKBIG13j9jn1D3aY0', roles: ['ROLE_ADMIN'] }
+                    begin@begin.lt: { password: '$argon2i$v=19$m=65536,t=4,p=1$elNYVGRDRDA3WVdadm1NbQ$bL1C1jRm+NQKMhm1AHM0AWaKtE9VWuK7RKa+nEduCaw', roles: ['ROLE_ADMIN'] }
+        all_users:
+            chain:
+                providers: ['database_users', 'backend_users']
+
 
     # https://symfony.com/doc/current/security.html#initial-security-yml-setup-authentication
     firewalls:
@@ -27,9 +37,10 @@ security:
             # denying access is done in access_control or in your controllers
             anonymous: lazy
 
-            # This allows the user to login by submitting a username and password
-            # Reference: https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
+                provider: all_users
+                username_parameter: email
+                password_parameter: password
                 # The route name that the login form submits to
                 check_path: security_login
                 # The name of the route where the login form lives
@@ -40,7 +51,7 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 # The page users are redirect to when there is no previous page stored in the
                 # session (for example when the users access directly to the login page).
-                default_target_path: blog_index
+                default_target_path: homepage
 
             logout:
                 # The route name the user can go to in order to logout
@@ -54,6 +65,7 @@ security:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
         - { path: '^/(%app_locales%)/admin', roles: ROLE_ADMIN }
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
