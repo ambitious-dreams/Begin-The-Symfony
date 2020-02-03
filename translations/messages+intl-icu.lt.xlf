@@ -376,6 +376,10 @@
                 <source>post.created_successfully</source>
                 <target>Įrašas sukurtas sėkmingai!</target>
             </trans-unit>
+            <trans-unit id="user.created_successfully">
+                <source>user.created_successfully</source>
+                <target>Vartotojas sukurtas sėkmingai!</target>
+            </trans-unit>
             <trans-unit id="post.updated_successfully">
                 <source>post.updated_successfully</source>
                 <target>Įrašas atnaujintas sėkmingai!</target>
@@ -383,6 +387,10 @@
             <trans-unit id="post.deleted_successfully">
                 <source>post.deleted_successfully</source>
                 <target>Įrašas ištrintas sėkmingai!</target>
+            </trans-unit>
+            <trans-unit id="user.deleted_successfully">
+                <source>user.deleted_successfully</source>
+                <target>Vartotojas ištrintas sėkmingai!</target>
             </trans-unit>
             <trans-unit id="post.search_for">
                 <source>post.search_for</source>

@@ -376,6 +376,10 @@
                 <source>post.created_successfully</source>
                 <target>Post created successfully!</target>
             </trans-unit>
+            <trans-unit id="user.created_successfully">
+                <source>user.created_successfully</source>
+                <target>User created successfully!</target>
+            </trans-unit>
             <trans-unit id="post.updated_successfully">
                 <source>post.updated_successfully</source>
                 <target>Post updated successfully!</target>
@@ -383,6 +387,10 @@
             <trans-unit id="post.deleted_successfully">
                 <source>post.deleted_successfully</source>
                 <target>Post deleted successfully!</target>
+            </trans-unit>
+            <trans-unit id="user.deleted_successfully">
+                <source>user.deleted_successfully</source>
+                <target>User deleted successfully!</target>
             </trans-unit>
             <trans-unit id="post.search_for">
                 <source>post.search_for</source>
