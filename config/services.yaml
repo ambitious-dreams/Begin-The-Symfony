@@ -30,7 +30,7 @@ services:
 
     # when the service definition only contains arguments, you can omit the
     # 'arguments' key and define the arguments just below the service class
-    App\EventSubscriber\CommentNotificationSubscriber:
+    App\EventSubscriber\MailNewUserSubscriber:
         $sender: '%app.notifications.email_sender%'
 
     # needed to activate the filters provided by Twig Intl Extension

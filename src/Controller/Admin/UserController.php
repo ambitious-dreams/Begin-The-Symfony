@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Events\UserCreatedEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/admin/user")
@@ -33,7 +35,7 @@ class UserController extends AbstractController
     /**
      * @Route("/new", methods={"GET", "POST"}, name="admin_user_new")
      */
-    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function new(Request $request, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher): Response
     {
         $user = new User();
         $user->setRoles(['ROLE_USER']);
@@ -44,11 +46,14 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
+            $password = $form->get('password')->getData();
+            $user->setPassword($encoder->encodePassword($user, $password));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $eventDispatcher->dispatch(new UserCreatedEvent($user, $password));
 
             $this->addFlash('success', 'user.created_successfully');
 
@@ -74,7 +79,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
+            $password = $form->get('password')->getData();
+            $user->setPassword($encoder->encodePassword($user, $password));
 
             $this->getDoctrine()->getManager()->flush();
 

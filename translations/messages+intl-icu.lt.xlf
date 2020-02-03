@@ -100,6 +100,14 @@
                 <source>title.change_password</source>
                 <target>Pakeisti slaptažodį</target>
             </trans-unit>
+            <trans-unit id="title.user_list">
+                <source>title.user_list</source>
+                <target>Vartotojai</target>
+            </trans-unit>
+            <trans-unit id="title.user_new">
+                <source>title.user_new</source>
+                <target>Sukurti naują vartotoją</target>
+            </trans-unit>
 
             <trans-unit id="action.show">
                 <source>action.show</source>
@@ -129,6 +137,22 @@
                 <source>action.delete_post</source>
                 <target>Ištrinti įrašą</target>
             </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Prisijungti</target>
+            </trans-unit>
+            <trans-unit id="action.admin_dashboard">
+                <source>action.admin_dashboard</source>
+                <target>Skydelis</target>
+            </trans-unit>
+            <trans-unit id="action.create_user">
+                <source>action.create_user</source>
+                <target>Sukurti vartotoją</target>
+            </trans-unit>
+            <trans-unit id="action.delete_user">
+                <source>action.delete_user</source>
+                <target>Ištrynti vartotoją</target>
+            </trans-unit>
             <trans-unit id="delete_post_modal.title">
                 <source>delete_post_modal.title</source>
                 <target>Ar tirkai norite ištrinti įrašą?</target>
@@ -137,9 +161,21 @@
                 <source>delete_post_modal.body</source>
                 <target>Šio veiksmo negalima atšaukti.</target>
             </trans-unit>
+            <trans-unit id="delete_user_modal.title">
+                <source>delete_user_modal.title</source>
+                <target>Ar tirkai norite ištrinti vartotoją?</target>
+            </trans-unit>
+            <trans-unit id="delete_user_modal.body">
+                <source>delete_user_modal.body</source>
+                <target>Šio veiksmo negalima atšaukti.</target>
+            </trans-unit>
             <trans-unit id="label.delete_post">
                 <source>label.delete_post</source>
                 <target>Ištrinti įrašą</target>
+            </trans-unit>
+            <trans-unit id="label.delete_user">
+                <source>label.delete_user</source>
+                <target>Ištrinti vartotoją</target>
             </trans-unit>
             <trans-unit id="label.cancel">
                 <source>label.cancel</source>
@@ -152,6 +188,10 @@
             <trans-unit id="label.create_post">
                 <source>label.create_post</source>
                 <target>Sukurti įrašą</target>
+            </trans-unit>
+            <trans-unit id="label.create_user">
+                <source>label.create_user</source>
+                <target>Sukurti vartotoją</target>
             </trans-unit>
             <trans-unit id="label.save_and_create_new">
                 <source>label.save_and_create_new</source>
@@ -250,6 +290,14 @@
                 <source>label.actions</source>
                 <target>Veiksmai</target>
             </trans-unit>
+            <trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Vardas</target>
+            </trans-unit>
+            <trans-unit id="label.password_confirm">
+                <source>label.password_confirm</source>
+                <target>Slaptažodžio patvirtinimas</target>
+            </trans-unit>
             <trans-unit id="title.post_new">
                 <source>title.post_new</source>
                 <target>Įrašo sukūrimas</target>
@@ -298,6 +346,10 @@
             <trans-unit id="menu.search">
                 <source>menu.search</source>
                 <target>Paieška</target>
+            </trans-unit>
+            <trans-unit id="menu.user_list">
+                <source>menu.user_list</source>
+                <target>Vartotojai</target>
             </trans-unit>
 
             <trans-unit id="post.to_publish_a_comment">
@@ -355,6 +407,15 @@
                 <target><![CDATA[Jūsų įrašas "{title}" gavo naują komentarą. Kad peržiūrėti komentarą, galite paspausti šia <a href="{link}">nuorodą</a>]]></target>
             </trans-unit>
 
+            <trans-unit id="mail.user_created">
+                <source>mail.user_created</source>
+                <target>Jūsų Begin The Symfony prisijungimo duomenys</target>
+            </trans-unit>
+            <trans-unit id="mail.user_created.description">
+                <source>mail.user_created.description</source>
+                <target><![CDATA[Jūsų Begin The Symfony prisijungimo duomenys: <p>El. paštas: {email}</p> <p>Slaptažodis: {password}</p>]]></target>
+            </trans-unit>
+
             <trans-unit id="help.app_description">
                 <source>help.app_description</source>
                 <target><![CDATA[Tai yra <strong>demo puslapis</strong> sukurtas su Symfony Framework parodydant tinkamą Symfony panaudojimą.]]></target>
@@ -410,6 +471,18 @@
             <trans-unit id="help.comment_content">
                 <source>help.comment_content</source>
                 <target>Komentarai, kurie neatitinka Elgesio kodekso, bus moderuojami.</target>
+            </trans-unit>
+            <trans-unit id="help.welcome_user">
+                <source>help.welcome_user</source>
+                <target>Sveiki atvykę</target>
+            </trans-unit>
+            <trans-unit id="help.welcome_admin">
+                <source>help.welcome_admin</source>
+                <target>Sveiki! Laikas administruoti...</target>
+            </trans-unit>
+            <trans-unit id="help.login">
+                <source>help.login</source>
+                <target>Prisijunkite</target>
             </trans-unit>
 
             <trans-unit id="info.change_password">
