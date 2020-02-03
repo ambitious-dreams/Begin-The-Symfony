@@ -1,30 +1,33 @@
-Symfony Demo Application
+Begin The Symfony
 ========================
 
-The "Symfony Demo Application" is a reference application created to show how
-to develop applications following the [Symfony Best Practices][1].
+Symfony app with login and user management features.
 
 Requirements
 ------------
 
   * PHP 7.1.3 or higher;
-  * PDO-SQLite PHP extension enabled;
   * and the [usual Symfony application requirements][2].
 
 Installation
 ------------
 
-[Download Symfony][4] to install the `symfony` binary on your computer and run
-this command:
+Configure DB connention in `.env` file
 
 ```bash
-$ symfony new --demo my_project
+$ DATABASE_URL=mysql://user_name:password@127.0.0.1:3306/db_name?serverVersion=10.1.37-MariaDB
 ```
 
-Alternatively, you can use Composer:
+Install dependencies
 
 ```bash
-$ composer create-project symfony/symfony-demo my_project
+$ composer update
+```
+
+Run migrations
+
+```bash
+$ php bin/console doctrine:migrations:migrate
 ```
 
 Usage
@@ -42,19 +45,3 @@ $ symfony serve
 If you don't have the Symfony binary installed, run `php -S localhost:8000 -t public/`
 to use the built-in PHP web server or [configure a web server][3] like Nginx or
 Apache to run the application.
-
-Tests
------
-
-Execute this command to run tests:
-
-```bash
-$ cd my_project/
-$ ./bin/phpunit
-```
-
-[1]: https://symfony.com/doc/current/best_practices.html
-[2]: https://symfony.com/doc/current/reference/requirements.html
-[3]: https://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
-[4]: https://symfony.com/download
-[5]: https://github.com/symfony/webpack-encore
