@@ -372,6 +372,10 @@
                 <source>post.no_posts_found</source>
                 <target>No posts found.</target>
             </trans-unit>
+            <trans-unit id="user.no_users_found">
+                <source>user.no_users_found</source>
+                <target>No users found.</target>
+            </trans-unit>
             <trans-unit id="post.created_successfully">
                 <source>post.created_successfully</source>
                 <target>Post created successfully!</target>
